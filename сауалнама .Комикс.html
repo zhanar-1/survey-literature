@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Классикалық әдебиет және комикс - Сауалнама</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        .desc {
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+        .question-block {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #fafafa;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+        .question-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        .options label {
+            display: block;
+            margin-bottom: 8px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            background-color: #3498db;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        .result-box {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            background: #e8f8f5;
+            border: 1px solid #a3e4d7;
+            border-radius: 8px;
+        }
+        .result-box h3 {
+            color: #117a65;
+            text-align: center;
+            margin-top: 0;
+        }
+        .stat-item {
+            margin-bottom: 15px;
+            background: #fff;
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: 1px solid #d1f2eb;
+        }
+        .stat-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        .bar-container {
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            height: 20px;
+            margin-top: 5px;
+        }
+        .bar-fill {
+            height: 100%;
+            background-color: #1abc9c;
+            width: 0%;
+            transition: width 0.5s ease-in-out;
+        }
+        .stat-text {
+            font-size: 13px;
+            color: #555;
+            margin-top: 3px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>📚 Классикалық әдебиет және комикс</h2>
+    <div class="desc">
+        <strong>Сауалнама мақсаты:</strong> оқушылардың классикалық әдеби шығармаларды қабылдауы және комикс пен визуализацияны қолдану тәжірибесі туралы бастапқы мәлімет жинау.
+    </div>
+
+    <form id="surveyForm">
+        <!-- 1 сұрақ -->
+        <div class="question-block">
+            <div class="question-title">1. Классикалық әдеби шығармаларды оқығанды ұнатасың ба?</div>
+            <div class="options">
+                <label><input type="radio" name="q1" value="Иә" required> Иә</label>
+                <label><input type="radio" name="q1" value="Кейде"> Кейде</label>
+                <label><input type="radio" name="q1" value="Жоқ"> Жоқ</label>
+            </div>
+        </div>
+
+        <!-- 2 сұрақ -->
+        <div class="question-block">
+            <div class="question-title">2. Әдеби шығарманың мазмұнын сурет немесе комикс арқылы түсіндірген ұнай ма?</div>
+            <div class="options">
+                <label><input type="radio" name="q2" value="Иә" required> Иә</label>
+                <label><input type="radio" name="q2" value="Кейде"> Кейде</label>
+                <label><input type="radio" name="q2" value="Жоқ"> Жоқ</label>
+            </div>
+        </div>
+
+        <!-- 3 сұрақ -->
+        <div class="question-block">
+            <div class="question-title">3. Комикс шығарманың оқиғасын түсінуге көмектесе алады деп ойлайсың ба?</div>
+            <div class="options">
+                <label><input type="radio" name="q3" value="Иә" required> Иә</label>
+                <label><input type="radio" name="q3" value="Білмеймін"> Білмеймін</label>
+                <label><input type="radio" name="q3" value="Жоқ"> Жоқ</label>
+            </div>
+        </div>
+
+        <!-- 4 сұрақ -->
+        <div class="question-block">
+            <div class="question-title">4. Қай визуалды формат саған қызықты?</div>
+            <div class="options">
+                <label><input type="radio" name="q4" value="Комикс" required> Комикс</label>
+                <label><input type="radio" name="q4" value="Кейіпкерлер картасы"> Кейіпкерлер картасы</label>
+                <label><input type="radio" name="q4" value="Оқиға схемасы"> Оқиға схемасы</label>
+                <label><input type="radio" name="q4" value="Барлығы"> Барлығы</label>
+            </div>
+        </div>
+
+        <!-- 5 сұрақ -->
+        <div class="question-block">
+            <div class="question-title">5. Комикс арқылы танысқан шығарма туралы толық мәтінді оқуға қызығушылығың арта ма?</div>
+            <div class="options">
+                <label><input type="radio" name="q5" value="Иә" required> Иә</label>
+                <label><input type="radio" name="q5" value="Кейде"> Кейде</label>
+                <label><input type="radio" name="q5" value="Жоқ"> Жоқ</label>
+            </div>
+        </div>
+
+        <button type="submit" class="btn">Жауаптарды жіберу және нәтижені көру</button>
+    </form>
+
+    <!-- Нәтижелерді көрсету блоктары -->
+    <div id="resultBox" class="result-box">
+        <h3>📊 Сауалнама нәтижелері</h3>
+        <p id="totalRespondents" style="text-align: center; font-weight: bold; color: #16a085;"></p>
+        
+        <div class="stat-item">
+            <div class="stat-title">1. Классикалық әдеби шығармаларды оқығанды ұнатасың ба?</div>
+            <div id="stat-q1"></div>
+        </div>
+
+        <div class="stat-item">
+            <div class="stat-title">2. Сурет немесе комикс арқылы түсіндірген ұнай ма?</div>
+            <div id="stat-q2"></div>
+        </div>
+
+        <div class="stat-item">
+            <div class="stat-title">3. Комикс түсінуге көмектесе алады ма?</div>
+            <div id="stat-q3"></div>
+        </div>
+
+        <div class="stat-item">
+            <div class="stat-title">4. Қай визуалды формат қызықты?</div>
+            <div id="stat-q4"></div>
+        </div>
+
+        <div class="stat-item">
+            <div class="stat-title">5. Толық мәтінді оқуға қызығушылық арта ма?</div>
+            <div id="stat-q5"></div>
+        </div>
+
+        <button class="btn" onclick="location.reload()" style="background-color: #7f8c8d; margin-top: 15px;">Қайтадан тапсыру</button>
+    </div>
+</div>
+
+<script>
+    // Жергілікті жадқа сақтайтын статистикалық база (бұл браузерде жиналады)
+    let stats = JSON.parse(localStorage.getItem('surveyStats')) || {
+        total: 0,
+        q1: { "Иә": 0, "Кейде": 0, "Жоқ": 0 },
+        q2: { "Иә": 0, "Кейде": 0, "Жоқ": 0 },
+        q3: { "Иә": 0, "Білмеймін": 0, "Жоқ": 0 },
+        q4: { "Комикс": 0, "Кейіпкерлер картасы": 0, "Оқиға схемасы": 0, "Барлығы": 0 },
+        q5: { "Иә": 0, "Кейде": 0, "Жоқ": 0 }
+    };
+
+    document.getElementById('surveyForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Таңдалған жауаптарды жинау
+        const formData = new FormData(this);
+        stats.total++;
+        
+        for (let [key, value] of formData.entries()) {
+            if (stats[key] && stats[key][value] !== undefined) {
+                stats[key][value]++;
+            }
+        }
+
+        // Жергілікті жадқа сақтау
+        localStorage.setItem('surveyStats', JSON.stringify(stats));
+
+        // Форманы жасырып, нәтижелерді шығару
+        document.getElementById('surveyForm').style.display = 'none';
+        document.getElementById('resultBox').style.display = 'block';
+        
+        renderResults();
+    });
+
+    function renderResults() {
+        document.getElementById('totalRespondents').innerText = `Барлығы қатысқандар: ${stats.total} оқушы`;
+
+        renderQuestionStats('stat-q1', stats.q1, stats.total);
+        renderQuestionStats('stat-q2', stats.q2, stats.total);
+        renderQuestionStats('stat-q3', stats.q3, stats.total);
+        renderQuestionStats('stat-q4', stats.q4, stats.total);
+        renderQuestionStats('stat-q5', stats.q5, stats.total);
+    }
+
+    function renderQuestionStats(elementId, qData, total) {
+        let container = document.getElementById(elementId);
+        container.innerHTML = '';
+
+        for (let [option, count] of Object.entries(qData)) {
+            let percentage = total > 0 ? Math.round((count / total) * 100) : 0;
+            
+            let html = `
+                <div style="margin-bottom: 8px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 14px;">
+                        <span>${option}</span>
+                        <span><b>${count}</b> дауыс (${percentage}%)</span>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar-fill" style="width: ${percentage}%;"></div>
+                    </div>
+                </div>
+            `;
+            container.innerHTML += html;
+        }
+    }
+</script>
+
+</body>
+</html>
