@@ -156,9 +156,8 @@
         .chart-container {
             position: relative;
             width: 100%;
-            max-width: 350px;
             margin: 0 auto;
-            height: 250px;
+            height: 320px;
         }
     </style>
 </head>
@@ -226,34 +225,16 @@
             <button type="submit" class="btn">Жауаптарды жіберу және нәтижені көру</button>
         </form>
 
-        <!-- Диаграмма нәтижелері блогы -->
+        <!-- Біріктірілген диаграмма блогы -->
         <div id="resultBox" class="result-box">
-            <h3>📊 Сауалнама нәтижелері мен диаграммалар</h3>
+            <h3>📊 Сауалнаманың біріктірілген нәтижелері</h3>
             <p id="totalRespondents"></p>
             
             <div class="chart-card">
-                <div class="chart-title">1. Классикалық шығармаларды оқығанды ұнатасың ба?</div>
-                <div class="chart-container"><canvas id="chartQ1"></canvas></div>
-            </div>
-
-            <div class="chart-card">
-                <div class="chart-title">2. Сурет немесе комикс арқылы түсіндірген ұнай ма?</div>
-                <div class="chart-container"><canvas id="chartQ2"></canvas></div>
-            </div>
-
-            <div class="chart-card">
-                <div class="chart-title">3. Комикс түсінуге көмектесе алады ма?</div>
-                <div class="chart-container"><canvas id="chartQ3"></canvas></div>
-            </div>
-
-            <div class="chart-card">
-                <div class="chart-title">4. Қай визуалды формат қызықты?</div>
-                <div class="chart-container"><canvas id="chartQ4"></canvas></div>
-            </div>
-
-            <div class="chart-card">
-                <div class="chart-title">5. Толық мәтінді оқуға қызығушылық арта ма?</div>
-                <div class="chart-container"><canvas id="chartQ5"></canvas></div>
+                <div class="chart-title">Барлық сұрақтар бойынша жалпы статистика</div>
+                <div class="chart-container">
+                    <canvas id="unifiedChart"></canvas>
+                </div>
             </div>
 
             <button class="btn" onclick="location.reload()" style="background: linear-gradient(135deg, #64748b 0%, #475569 100%); margin-top: 10px;">Қайтадан тапсыру</button>
@@ -261,7 +242,7 @@
     </div>
 
     <script>
-        let stats = JSON.parse(localStorage.getItem('surveyStatsCharts')) || {
+        let stats = JSON.parse(localStorage.getItem('surveyUnifiedStats')) || {
             total: 0,
             q1: { "Иә": 0, "Кейде": 0, "Жоқ": 0 },
             q2: { "Иә": 0, "Кейде": 0, "Жоқ": 0 },
@@ -279,40 +260,46 @@
                     stats[key][value]++;
                 }
             }
-            localStorage.setItem('surveyStatsCharts', JSON.stringify(stats));
+            localStorage.setItem('surveyUnifiedStats', JSON.stringify(stats));
             
             document.getElementById('surveyForm').style.display = 'none';
             document.getElementById('resultBox').style.display = 'block';
-            renderCharts();
+            renderUnifiedChart();
         });
 
-        let chartsInstances = {};
+        let unifiedChartInstance = null;
 
-        function renderCharts() {
+        function renderUnifiedChart() {
             document.getElementById('totalRespondents').innerText = `Барлығы қатысқандар: ${stats.total} оқушы`;
 
-            createPieChart('chartQ1', stats.q1);
-            createPieChart('chartQ2', stats.q2);
-            createPieChart('chartQ3', stats.q3);
-            createPieChart('chartQ4', stats.q4);
-            createPieChart('chartQ5', stats.q5);
-        }
+            const ctx = document.getElementById('unifiedChart').getContext('2d');
 
-        function createPieChart(canvasId, dataObj) {
-            const ctx = document.getElementById(canvasId).getContext('2d');
-            const labels = Object.keys(dataObj);
-            const values = Object.values(dataObj);
+            // Барлық сұрақтардың "Иә" жауаптарын жинақтап көрсетейік
+            const dataValues = [
+                stats.q1["Иә"], 
+                stats.q2["Иә"], 
+                stats.q3["Иә"], 
+                stats.q4["Комикс"], // 4-сұрақ бойынша ең танымал формат
+                stats.q5["Иә"]
+            ];
 
-            if (chartsInstances[canvasId]) {
-                chartsInstances[canvasId].destroy();
+            if (unifiedChartInstance) {
+                unifiedChartInstance.destroy();
             }
 
-            chartsInstances[canvasId] = new Chart(ctx, {
-                type: 'doughnut',
+            unifiedChartInstance = new Chart(ctx, {
+                type: 'bar',
                 data: {
-                    labels: labels,
+                    labels: [
+                        '1. Шығарма оқу', 
+                        '2. Сурет/комикспен түсіну', 
+                        '3. Комикс көмектеседі', 
+                        '4. Қызықты формат (Комикс)', 
+                        '5. Толық мәтінді оқуға әсері'
+                    ],
                     datasets: [{
-                        data: values,
+                        label: '"Иә" немесе таңдалған жауап саны',
+                        data: dataValues,
                         backgroundColor: [
                             '#6366f1',
                             '#38bdf8',
@@ -320,8 +307,7 @@
                             '#fbbf24',
                             '#f43f5e'
                         ],
-                        borderWidth: 2,
-                        borderColor: '#ffffff'
+                        borderRadius: 8
                     }]
                 },
                 options: {
@@ -329,13 +315,14 @@
                     maintainAspectRatio: false,
                     plugins: {
                         legend: {
-                            position: 'bottom',
-                            labels: {
-                                font: {
-                                    family: "'Plus Jakarta Sans', sans-serif",
-                                    size: 13
-                                },
-                                padding: 15
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
                             }
                         }
                     }
